@@ -1,0 +1,124 @@
+body {
+	background: transparent;
+	margin: 0;
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 50px;
+}
+
+.top {
+	background: #c7e3ff;
+	padding: 10px 0;
+}
+
+.wrapper {
+	background: url(http://beta.textpanda.com/img/shadow.png) repeat-x scroll 0 100%;
+	padding-bottom: 13px;
+}
+
+.container {
+	margin-bottom: 0;
+}
+
+.header {
+	font-size: 18px;
+}
+
+.header .value {
+	padding-left: 42px;
+	background-image: url(http://beta.textpanda.com/img/logo_small.gif);
+	background-repeat: no-repeat;
+	background-position: 5px 100%;
+}
+
+input.text, textarea, button.add {
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 50px;
+	margin: 0;
+	outline: 0;
+	padding: 7px;
+}
+
+input.text {
+	text-align: right;
+	font-weight: bold;
+	width: 230px;
+	height: 76px;
+}
+
+html.safari input.text {
+	width: 216px;
+	height: 64px;
+}
+
+textarea {
+	width: 630px;
+	height: 76px;
+}
+
+html.safari textarea {
+	width: 616px;
+	height: 64px;
+}
+
+.key span {
+	background: #666;
+	color: #fff;
+	padding: 4px; 10px;
+}
+
+.hover button.delete {
+	visibility: visible;
+}
+
+button {
+	border: 1px solid #ccc;
+	color: #fff;
+}
+
+button.delete {
+	visibility: hidden;
+	background: #a00;
+	height: 30px;
+	width: 100%;
+	margin-top: 22px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+html.safari button.delete {
+	margin-top: 0px;
+}
+
+button.add {
+	font-weight: bold;
+	width: 100%;
+	height: 76px;
+	background: #0a0;
+}
+
+html.safari button.add {
+	height: 80px;
+}
+
+ul {
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+li .key {
+	text-align: right;
+}
+
+li {
+	border-top: 1px dotted #ccc;
+	font-size: 50px;
+	overflow: hidden;
+}
+
+img {
+	width: 100%;
+	height: 13px;
+}

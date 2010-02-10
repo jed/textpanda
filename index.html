@@ -1,0 +1,137 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>textpanda - web-based text shortcuts for the lazy</title>
+
+		<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">    
+		<!--[if IE]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+		<link rel="stylesheet" href="css/index.css" type="text/css">
+		
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="jquery.cookie.js"></script>
+		<script type="text/javascript">
+
+			$( function() {
+			
+				var id = $.cookie("id");
+				
+				if ( !id ) {
+					
+					// adapted from http://www.broofa.com/blog/?p=151
+					var s = [], itoh = "0123456789ABCDEF", id;
+					for (var i = 0; i <36; i++) s[i] = Math.floor(Math.random()*0x10);
+					s[14] = 4;
+					s[19] = (s[19] & 0x3) | 0x8;
+					for (var i = 0; i <36; i++) s[i] = itoh[s[i]];
+					s[8] = s[13] = s[18] = s[23] = "-";
+					id = s.join("");
+					
+					$.cookie( "id", id, { expires: 3650 } )
+				}
+			
+				$.fn.selectAt = function ( start, end ) {
+				
+					var elem = this[0];
+				
+					if ( !arguments.length )
+						return get( elem );
+					
+					set( elem, start, end );
+					return this;
+						
+					function set( elem, start, end ) {
+						
+						end = end || start;
+			
+						if ( elem.setSelectionRange ) // W3C
+							return elem.setSelectionRange( start, end );
+					
+						var range = elem.createTextRange();
+						range.collapse(true);
+						range.moveEnd('character', end);
+						range.moveStart('character', start);
+						range.select();
+					};
+					
+					function get( elem ) {
+					
+						if ( elem.setSelectionRange ) // W3C
+							return [ elem.selectionStart , elem.selectionEnd ];
+					
+						var
+							length = elem.value.length,
+							range = document.selection.createRange(),
+							startRange = range.duplicate(),
+							endRange = range.duplicate();
+										
+						endRange.moveEnd('character', length);
+						var endPos = range.text == ''
+							? length
+							: elem.value.lastIndexOf(range.text);
+			
+						startRange.moveStart('character', -length);
+						var startPos = startRange.text.length;
+						
+						return [ startPos, endPos ];
+					};
+				
+				};
+
+
+				var
+					browser = $.grep( ["mozilla", "safari", "msie", "opera" ], function(n){ return $.browser[n] } )[0],
+					fnString = "var script=document.createElement('script');script.setAttribute('src','http://beta.textpanda.com/index.js#" + id + "');document.body.appendChild(script);",
+					fn = new Function(fnString);
+				
+				$("html").addClass(browser);
+				
+				if (browser == "msie")
+					$("<div/>")
+						.addClass("error span-24 last")
+						.css({
+							textAlign: "center",
+							marginBottom: 15
+						})
+						.text("We're sorry, but we're still working on support for Internet Explorer. Please use Firefox or Safari!")
+						.insertAfter(".header");
+
+				$(".bookmarklet .button")
+					.attr( "href", "javascript:(function(){" + fnString.replace(/ /g, "%20") + "})()" )
+					
+				fn();
+
+				$("textarea")
+					.focus()
+					.selectAt(117);
+									
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="span-9 logo">
+				<img src="img/logo.gif"/>
+			</div>
+			<div class="span-15 header last">
+				<h1>textpanda</h1>
+				<h2>web-based input shortcuts for the lazy</h2>
+			</div>
+			<div class="span-18 append-3 prepend-3 last">
+<textarea>textpanda lets you abbreviate things you end up typing repeatedly on the web.
+
+* for example, try typing "brb" here: 
+* then go ahead and type "ttyl" here: 
+* or you could even type "byob" here: 
+
+you can click the panda icon in the lower left to define your own useful abbreviations, like your address, sig, §Pé©ïÅ₤ characters, or anything else you can think of.</textarea>
+				<div class="bookmarklet">
+					you can also bring your abbreviations anywhere you work on the web! <span class="mozilla opera safari">just drag this <a class="button">textpanda</a> button to your bookmark toolbar, and then click it to enable textpanda anywhere that you can input text.</span><span class="msie">just right-click this <a class="button">textpanda</a> button, choose <strong>Add to Favorites</strong>, add it to your <strong>Links</strong> folder, and then click the bookmark to enable textpanda anywhere that you can input text.</span> to turn it off, just click it again. any questions or comments? <a href="http://getsatisfaction.com/langwidget/products/langwidget_textpanda">let us know!</a>
+				</div>
+			</div>
+			<div class="span-21 prepend-3 footer">© 2008 Babel Labs</div>
+		</div>
+	</body>
+</html>
